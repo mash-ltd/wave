@@ -44,8 +44,8 @@ module Wave
     end
 
     def get_object(object_url)
-      options.merge!({token: self.endpoint})
-      self.class.get(object_url, options)
+      options = {token: self.access_token}
+      self.class.get(object_url, query: options)
     end
 
     def get_profile

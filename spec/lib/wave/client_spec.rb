@@ -78,13 +78,43 @@ describe Wave::Client do
     end
   end
 
+  # This test will only work in my database environment. ~ RR
   describe "GET profile" do
     before do
       @config = {
         :endpoint   => 'http://localhost:3000/api/v1',
-        :method     => 'get',
+        :access_token => "xCFoelebOlbnuzGUvFLkXFp5W8QbgTR77x8l0O68"
       }
+      client.config(@config)
+      VCR.insert_cassette 'base', :record => :new_episodes
     end
+
+    after do
+      VCR.eject_cassette
+    end
+
+    it "should have the right endpoint for testing" do
+      client.endpoint.should == "http://localhost:3000/api/v1"
+      client.access_token.should == "xCFoelebOlbnuzGUvFLkXFp5W8QbgTR77x8l0O68"
+    end
+
+    it "must have a profile method" do
+      client.should respond_to :profile_info
+    end
+
+    it "must parse the api response from JSON to Hash" do
+      client.profile_info.should be_an_instance_of Hash
+    end
+
+    it "must get the right profile" do
+      client.profile_info["name"].should == "mashsolvents"
+    end
+
+    # it "should issue a GET Request to get users profile info" do
+    #   profile_info = client.profile_info
+    #   debugger
+    # end
+
   end
 
   # before do
