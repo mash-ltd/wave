@@ -20,15 +20,18 @@ Or install it yourself as:
 
 Configure wave with the following.
 Create YML file `wave.yml` with the following configuration options:
+```yaml
+development:
+  endpoint:     "URL_FOR_API"       ex: 'http://localhost:3000/api/v1'
+  format:       "REQUESTED_FORMAT"  ex: 'json'
+  access_token: "OAUTH_ACCESS_TOKEN"
+```
 
-    development:
-      endpoint: URL_FOR_API ex: 'http://localhost:3000/api/v1'
-      format: REQUESTED_FORMAT ex: 'json'
-      access_token: CLIENT_ACCESS_TOKEN OR APP_ACCESS_TOKEN
 
-You can set access_token afterwards to change it to the CLIENT_ACCESS_TOKEN if not available at the beginning by:
-
-    Wave::Client.instance.config({access_token: CLIENT_ACCESS_TOKEN})
+You can set access_token afterwards to change it to the `CLIENT_ACCESS_TOKEN` if not available at the beginning by:
+```ruby
+Wave::Client.instance.config({access_token: CLIENT_ACCESS_TOKEN})
+```
 
 ## Contributing
 
