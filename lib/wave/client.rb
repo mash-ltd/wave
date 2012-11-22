@@ -30,6 +30,18 @@ module Wave
       @profile_info = get_profile
     end
 
+    def post_message
+      # To be implemented.
+    end
+
+    def post_feed
+      # To be implemented
+    end
+
+    def get_picture
+      # To be implemented
+    end
+
     private
 
     def set_config(options={})
