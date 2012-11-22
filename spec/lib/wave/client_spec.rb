@@ -79,7 +79,7 @@ describe Wave::Client do
   end
 
   # This test will only work in my database environment. ~ RR
-  describe "GET profile" do
+  describe "Raneen API Requests" do
     before do
       @config = {
         :endpoint   => 'http://localhost:3000/api/v1',
@@ -98,17 +98,48 @@ describe Wave::Client do
       client.access_token.should == "xCFoelebOlbnuzGUvFLkXFp5W8QbgTR77x8l0O68"
     end
 
-    it "must have a profile method" do
-      client.should respond_to :profile_info
+    describe "GET profile" do
+
+      it "must have a profile method" do
+        client.should respond_to :profile_info
+      end
+
+      it "must parse the api response from JSON to Hash" do
+        client.profile_info.should be_an_instance_of Hash
+      end
+
+      it "must get the right profile information" do
+        client.profile_info["name"].should == "mashsolvents"
+      end
     end
 
-    it "must parse the api response from JSON to Hash" do
-      client.profile_info.should be_an_instance_of Hash
-    end
+    describe "POST message" do
 
-    it "must get the right profile information" do
-      client.profile_info["name"].should == "mashsolvents"
-    end
+      before do
+        @message = {
+          message: { 
+            body: "Hey there from Wave API!", 
+            recipient_ids: "user-50541cd12d6ecc512100000d" 
+          }
+        }
+        @response = client.message(@message)
+      end
 
+      it "should include a recipient id" do
+        @message[:message][:recipient_ids].should == "user-50541cd12d6ecc512100000d"
+      end
+
+      it "must have a message method" do
+        client.should respond_to :message
+      end
+
+      it "must parse the api response from JSON to Hash" do
+        @response.parsed_response.should be_an_instance_of Hash
+      end
+
+      it "must post a message when recieving the correct params" do
+        @response.parsed_response.should == {"success" => "Message sent"}
+      end
+    end
   end
 end

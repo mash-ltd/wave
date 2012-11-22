@@ -112,4 +112,41 @@ http_interactions:
         Khaled Ibn el waleed, Masaken Sheraton, Heliopolis, Cairo Egypt","founded_at":"2006","number_of_employees":"","industry":"","mission":"","vision":"","timezone_offset":"","entity_type":"company","avatar":"/system/uploads/company/avatar/50541cd12d6ecc512100000e/profile_mash-blueprint.jpg","avatar_icon":"/system/uploads/company/avatar/50541cd12d6ecc512100000e/icon_mash-blueprint.jpg","avatar_thumb":"/system/uploads/company/avatar/50541cd12d6ecc512100000e/thumb_mash-blueprint.jpg","avatar_profile":"/system/uploads/company/avatar/50541cd12d6ecc512100000e/profile_mash-blueprint.jpg"}'
     http_version: 
   recorded_at: Thu, 22 Nov 2012 01:06:33 GMT
+- request:
+    method: post
+    uri: http://localhost:3000/api/v1/messages/create
+    body:
+      encoding: US-ASCII
+      string: message[body]=Hey%20there%20from%20Wave%20API!&message[recipient_ids]=user-50541cd12d6ecc512100000d&token=xCFoelebOlbnuzGUvFLkXFp5W8QbgTR77x8l0O68
+    headers: {}
+  response:
+    status:
+      code: 201
+      message: ! 'Created '
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '26'
+      X-Ua-Compatible:
+      - IE=Edge
+      Etag:
+      - ! '"07b09adaf9395f4e67d0d29ff71886c6"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 91993bef1166505a0753b8cb1b0889ed
+      X-Runtime:
+      - '1.668709'
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.3/2011-10-30)
+      Date:
+      - Thu, 22 Nov 2012 21:39:25 GMT
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"success":"Message sent"}'
+    http_version: 
+  recorded_at: Thu, 22 Nov 2012 21:39:25 GMT
 recorded_with: VCR 2.3.0

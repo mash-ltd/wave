@@ -27,19 +27,41 @@ module Wave
     end
 
     def profile_info
-      @profile_info = get_profile
+      raise AuthenticationError.new(nil, nil, "Write operations require an access token") unless self.access_token
+      get_object("user")
     end
 
-    def post_message
-      # To be implemented.
+    def message(args)
+      raise AuthenticationError.new(nil, nil, "Write operations require an access token") unless self.access_token
+      post_object("message", args)
     end
 
-    def post_feed
-      # To be implemented
+    def feed(args)
+      raise AuthenticationError.new(nil, nil, "Write operations require an access token") unless self.access_token
+      post_object("feed", args)
     end
 
-    def get_picture
-      # To be implemented
+    # Fetch information about a given connection (e.g. type of activity -- feed, events, photos, etc.)
+    # for a specific user.
+    #
+    # @param connection_name what
+    #
+    # @return object hashes
+    def get_object(connection_name)
+      options = {token: self.access_token}
+      self.class.get("/#{connection_name.pluralize}/index", query: options)
+    end
+
+    # Post information about a given connection (e.g. type of activity -- feed, events, photos, etc.)
+    # for a specific user.
+    #
+    # @param connection_name what
+    # @param args any additional arguments to be sent to Raneen
+    #
+    # @return object hashes
+    def post_object(connection_name, args = {}, options = {})
+      args[:token] =  self.access_token
+      self.class.post("/#{connection_name.pluralize}/create", body: args)
     end
 
     private
@@ -52,16 +74,9 @@ module Wave
       Configuration::VALID_CONFIG_KEYS.each do |key|
         send("#{key}=", merged_options[key])
       end
+
+      ###### BASE URI for HTTParty
       Wave::Client.base_uri merged_options[:endpoint].to_s
-    end
-
-    def get_object(object_url)
-      options = {token: self.access_token}
-      self.class.get(object_url, query: options)
-    end
-
-    def get_profile
-      get_object("/users/index")
     end
   end
 end

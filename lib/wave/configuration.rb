@@ -21,12 +21,12 @@ module Wave
     end
 
     def reset
-      self.endpoint   = DEFAULT_ENDPOINT
-      self.method     = DEFAULT_METHOD
-      self.user_agent = DEFAULT_USER_AGENT
-
-      self.access_token    = DEFAULT_ACCESS_TOKEN
-      self.format          = DEFAULT_FORMAT
+      self.endpoint         = DEFAULT_ENDPOINT
+      self.method           = DEFAULT_METHOD
+      self.user_agent       = DEFAULT_USER_AGENT
+  
+      self.access_token     = DEFAULT_ACCESS_TOKEN
+      self.format           = DEFAULT_FORMAT
     end
 
     def configure
