@@ -22,23 +22,30 @@ module Wave
       self
     end
 
+    def api_key(access_token)
+      set_config(access_token: access_token)
+    end
+
     def reset_config
       set_config(Wave.options)
     end
 
     def profile_info
-      raise AuthenticationError.new(nil, nil, "Write operations require an access token") unless self.access_token
       get_object("user")
     end
 
-    def message(args)
-      raise AuthenticationError.new(nil, nil, "Write operations require an access token") unless self.access_token
-      post_object("message", args)
+    # Sending a message to a user/company in Raneen
+    #
+    # @params args any additional arguments to be sent to Raneen e.g: "{message: {body: "hey", recipient_ids: "1234"}}"
+    # @param entity_type e.g. type of the entity i am posting to -- company or user.
+    # @return response hash
+    def message(args, entity_type)
+      args[:message][:recipient_ids] = entity_type + "-" + args[:message][:recipient_ids] 
+      post_object("message", args).parsed_response
     end
 
     def feed(args)
-      raise AuthenticationError.new(nil, nil, "Write operations require an access token") unless self.access_token
-      post_object("feed", args)
+      post_object("feed", args).parsed_response
     end
 
     # Fetch information about a given connection (e.g. type of activity -- feed, events, photos, etc.)
@@ -48,7 +55,8 @@ module Wave
     #
     # @return object hashes
     def get_object(connection_name)
-      options = {token: self.access_token}
+      raise Errors::AuthenticationError.new("Get operations require an access token") unless self.access_token
+      options[:token] = self.access_token
       self.class.get("/#{connection_name.pluralize}/index", query: options)
     end
 
@@ -60,6 +68,7 @@ module Wave
     #
     # @return object hashes
     def post_object(connection_name, args = {}, options = {})
+      raise Errors::AuthenticationError.new("Write operations require an access token") unless self.access_token
       args[:token] =  self.access_token
       self.class.post("/#{connection_name.pluralize}/create", body: args)
     end
