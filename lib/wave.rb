@@ -31,5 +31,6 @@ module Wave
 
 end
 
+require 'wave/errors'
 # add rails integration
 require('wave/railtie') if defined?(::Rails)
