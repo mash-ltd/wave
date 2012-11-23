@@ -114,15 +114,14 @@ describe Wave::Client do
     end
 
     describe "POST message" do
-
       before do
         @message = {
           message: { 
             body: "Hey there from Wave API!", 
-            recipient_ids: "user-50541cd12d6ecc512100000d" 
+            recipient_ids: "50541cd12d6ecc512100000d" 
           }
         }
-        @response = client.message(@message)
+        @response = client.message(@message, "user")
       end
 
       it "should include a recipient id" do
@@ -134,12 +133,36 @@ describe Wave::Client do
       end
 
       it "must parse the api response from JSON to Hash" do
-        @response.parsed_response.should be_an_instance_of Hash
+        @response.should be_an_instance_of Hash
       end
 
       it "must post a message when recieving the correct params" do
-        @response.parsed_response.should == {"success" => "Message sent"}
+        @response.should == {"success" => "Message sent"}
       end
+    end
+
+    describe "POST on Feeds" do
+      before do 
+        @feed = {
+          feed_item: {
+            content: "Hey via Wave API."
+          }
+        }
+        @response = client.feed(@feed)
+      end
+
+      it "must have a feed method" do
+        client.should respond_to :feed
+      end
+
+      it "must parse the api response from JSON to Hash" do
+        @response.should be_an_instance_of Hash
+      end
+
+      it "must post a message when recieving the correct params" do
+        @response.should == {"success" => "Feed item posted"}
+      end
+
     end
   end
 end
