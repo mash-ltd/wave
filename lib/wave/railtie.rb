@@ -6,7 +6,7 @@ module Wave
       class Railtie < Rails::Railtie
 
         initializer :load_wave_config do 
-          Wave.set_options
+          @wave = Wave::Client.instance
         end
       end
     end

@@ -1,5 +1,6 @@
 module Wave
   module Configuration
+
     VALID_CONNECTION_KEYS = [:endpoint, :user_agent, :method].freeze
     VALID_OPTIONS_KEYS    = [:access_token, :format].freeze
     VALID_CONFIG_KEYS     = VALID_CONNECTION_KEYS + VALID_OPTIONS_KEYS

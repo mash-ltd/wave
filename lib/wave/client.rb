@@ -17,13 +17,12 @@ module Wave
     end
 
     def config(options={})
-      options ||= Wave.get_yaml_options
+      options = Wave.get_yaml_options if options.empty?
       set_config(options)
-      self
     end
 
     def api_key(access_token)
-      set_config(access_token: access_token)
+      self.access_token = access_token
     end
 
     def reset_config
