@@ -34,6 +34,11 @@ module Wave
       get_object("user")
     end
 
+    def feed(message)
+      feed_item = {feed_item: { content: message}}
+      post_to_feed(feed_item)
+    end
+
     # Sending a message to a user/company in Raneen
     #
     # @params args any additional arguments to be sent to Raneen e.g: "{message: {body: "hey", recipient_ids: "1234"}}"
@@ -44,7 +49,7 @@ module Wave
       post_object("message", args).parsed_response
     end
 
-    def feed(args)
+    def post_to_feed(args)
       post_object("feed", args).parsed_response
     end
 
@@ -54,7 +59,7 @@ module Wave
     # @param connection_name what
     #
     # @return object hashes
-    def get_object(connection_name)
+    def get_object(connection_name, options={})
       raise Errors::AuthenticationError.new("Get operations require an access token") unless self.access_token
       options[:token] = self.access_token
       self.class.get("/#{connection_name.pluralize}/index", query: options)
