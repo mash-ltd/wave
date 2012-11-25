@@ -148,7 +148,7 @@ describe Wave::Client do
             content: "Hey via Wave API."
           }
         }
-        @response = client.feed(@feed)
+        @response = client.post_to_feed(@feed)
       end
 
       it "must have a feed method" do
