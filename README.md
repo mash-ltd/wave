@@ -24,8 +24,8 @@ Configure wave with the following.
 Create YML file `wave.yml` under `app/config` with the following configuration options:
 ```yaml
 development:
-  endpoint:     "URL_FOR_API"       ex: 'http://localhost:3000/api/v1'
-  format:       "REQUESTED_FORMAT"  ex: 'json'
+  endpoint:     "URL_FOR_API"       # ex: 'http://localhost:3000/api/v1'
+  format:       "REQUESTED_FORMAT"  # ex: 'json'
   access_token: "OAUTH_ACCESS_TOKEN"
 ```
 ```ruby
@@ -55,7 +55,7 @@ To send a message:
         recipient_ids: RECIPIENT_UID
     }
 }
-RECIPIENT_TYPE which entity type you are talking to ex: "company" or "user" 
+# RECIPIENT_TYPE which entity type you are talking to ex: "company" or "user" 
 @wave.message(@message_hash, RECIPIENT_TYPE)
 ```
 To post on `current_user` feed:
