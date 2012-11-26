@@ -1,30 +1,38 @@
 # Wave
 
-TODO: Write a gem description
+Wave is a ruby API Client for [Raneen](http://raneen.tamkeencapital.com), supporting Raneen's API v1 for posting and creating feeds and messages.
+It should work beside raneen-omniauth gem to easily integrate any application with Raneen platform. It adds more felxibility to Raneen's API.
+It's tested on the following environment:
+- Rails 3
+- Ruby 1.9.3
+
 
 ## Installation
 
 Add this line to your application's Gemfile:
-
-    gem 'wave'
+```ruby
+gem 'wave', github: 'mash-ltd/wave'
+```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install wave
-
 ## Usage
 
 Configure wave with the following.
-Create YML file `wave.yml` with the following configuration options:
+Create YML file `wave.yml` under `app/config` with the following configuration options:
 ```yaml
 development:
-  endpoint:     "URL_FOR_API"       ex: 'http://localhost:3000/api/v1'
-  format:       "REQUESTED_FORMAT"  ex: 'json'
+  endpoint:     "URL_FOR_API"       # ex: 'http://localhost:3000/api/v1'
+  format:       "REQUESTED_FORMAT"  # ex: 'json'
   access_token: "OAUTH_ACCESS_TOKEN"
+```
+```ruby
+DEFAULT_ENDPOINT    = "http://raneen.tamkeencapital.com/api/v1"
+DEFAULT_METHOD      = :get
+DEFAULT_ACCESS_TOKEN = nil
+DEFAULT_FORMAT       = :json
 ```
 OR you can pass your configuration to the Client directly without using the yml file by the following:
 ```ruby
@@ -47,17 +55,12 @@ To send a message:
         recipient_ids: RECIPIENT_UID
     }
 }
-RECIPIENT_TYPE which entity type you are talking to ex: "company" or "user" 
+# RECIPIENT_TYPE which entity type you are talking to ex: "company" or "user" 
 @wave.message(@message_hash, RECIPIENT_TYPE)
 ```
 To post on `current_user` feed:
 ```ruby
-@feed = {
-  feed_item: {
-    content: "Hey via Wave API."
-  }
-}
-@wave.feed(@feed)
+@wave.feed("Hey from Wave!")
 ```
 ## Contributing
 
