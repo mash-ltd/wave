@@ -38,6 +38,11 @@ module Wave
       post_to_feed(feed_item)
     end
 
+    def send_message(message, recipient_id, recipient_type)
+      message = {message: {body: message, recipient_ids: recipient_id}}
+      message(message, recipient_type)
+    end
+
     # Sending a message to a user/company in Raneen
     #
     # @params args any additional arguments to be sent to Raneen e.g: "{message: {body: "hey", recipient_ids: "1234"}}"
