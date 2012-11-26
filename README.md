@@ -58,6 +58,13 @@ To send a message:
 # RECIPIENT_TYPE which entity type you are talking to ex: "company" or "user" 
 @wave.message(@message_hash, RECIPIENT_TYPE)
 ```
+or you can use this method for sending a messsage without creating the hash yourself
+```ruby
+# @param message ex: "Hey from wave"
+# @param recipient_id
+# @param recipient_type ex: "user"
+@wave.send_message(message, recipient_id, recipient_type)
+```
 To post on `current_user` feed:
 ```ruby
 @wave.feed("Hey from Wave!")
