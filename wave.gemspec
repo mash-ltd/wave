@@ -8,9 +8,9 @@ Gem::Specification.new do |gem|
   gem.version       = Wave::VERSION
   gem.authors       = ["ranaramez"]
   gem.email         = ["rana.ramez@mashsolvents.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = %q{Ruby client for Raneen's API}
+  gem.summary       = %q{Ruby client for Raneen's API}
+  gem.homepage      = "https://github.com/mash-ltd/wave"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
